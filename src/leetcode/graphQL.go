@@ -28,7 +28,7 @@ type GraphQLError struct {
 // send POST request to ENDPOINT
 // input: GraphQLRequest
 // output: *http.Request or error if any
-func sendRequest(body GraphQLRequest) ([]byte, error) {
+func sendRequest(body *GraphQLRequest) ([]byte, error) {
 	//encode requestBody to json format
 	jsonBody, err := json.Marshal(body)
 	if err != nil {

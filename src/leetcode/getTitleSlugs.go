@@ -51,7 +51,7 @@ func getTitleSlugs(topic string, skip int, questions *[]string) (bool, error) {
 		OperationName: "problemsetQuestionList",
 	}
 
-	respBody, err := sendRequest(requestBody)
+	respBody, err := sendRequest(&requestBody)
 	if err != nil {
 		return false, err
 	}

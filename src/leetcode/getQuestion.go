@@ -53,7 +53,7 @@ func GetQuestion(titleSlug string) (*types.Question, error) {
 		OperationName: "GetProblemData",
 	}
 
-	respBody, err := sendRequest(requestBody)
+	respBody, err := sendRequest(&requestBody)
 	if err != nil {
 		return nil, err
 	}
