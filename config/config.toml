@@ -1,0 +1,21 @@
+[database]
+  username = "your_db_user"
+  dbname = "your_db_name"
+  host = "localhost"
+  port = 5432  # Default PostgreSQL port
+
+[[platforms]]
+  name = "LeetCode"
+  website_url = "https://leetcode.com/"
+
+[[platforms]]
+  name = "HackerRank"
+  website_url = "https://www.hackerrank.com/"
+
+[[topics]]
+  name = "queue"
+  description = "A linear data structure that follows the First In First Out (FIFO) principle."
+
+[[topics]]
+  name = "stack"
+  description = "A linear data structure that follows the Last In First Out (LIFO) principle."
