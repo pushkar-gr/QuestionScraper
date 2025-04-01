@@ -137,3 +137,8 @@ func (db *DB) InsertQuestion(question Question) error {
 
 	return nil
 }
+
+// closes db
+func (db *DB) closeDB() {
+	db.DB.Close()
+}
