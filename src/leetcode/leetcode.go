@@ -11,7 +11,7 @@ func UpdateDB(config *types.Config) {
 	for _, topic := range config.Topics {
 		titles, err := GetTitleSlugs(topic.Name)
 		if err != nil {
-			log.Printf("Failed to get topic titles for %v from leetcode: %v\n", topic, err)
+			log.Printf("Failed to get topic titles for %v from leetcode: %v\n", topic.Name, err)
 			continue
 		}
 
@@ -19,14 +19,14 @@ func UpdateDB(config *types.Config) {
 		for _, title := range titles {
 			question, err := GetQuestion(title)
 			if err != nil {
-				log.Printf("Failed to get question %v for topic %v from leetcode: %v", title, topic, err)
+				log.Printf("Failed to get question %v for topic %v from leetcode: %v", title, topic.Name, err)
 				continue
 			}
 
 			//insert question to database
 			err = config.Database.InsertQuestion(question)
 			if err != nil {
-				log.Printf("Failed to insert question %v for topic %v from leetcode: %v", title, topic, err)
+				log.Printf("Failed to insert question %v for topic %v from leetcode: %v", title, topic.Name, err)
 			} else {
 				log.Printf("Inserted question %v for topic %v from leetcode", title, topic)
 			}
