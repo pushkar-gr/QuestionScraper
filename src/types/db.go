@@ -111,7 +111,7 @@ func (db *DB) Populate(config *Config) error {
 // insert question into db
 // input: Question
 // output: error if any
-func (db *DB) InsertQuestion(question Question) error {
+func (db *DB) InsertQuestion(question *Question) error {
 	//begin transaction
 	tx, err := db.DB.Begin()
 	if err != nil {
