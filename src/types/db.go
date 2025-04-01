@@ -137,14 +137,15 @@ func (db *DB) InsertQuestion(question *Question) error {
 	var questionID int
 	err = tx.QueryRow(`
      INSERT INTO questions
-     (title, platform_id, external_id, link, difficulty, solution, explanation)
-     VALUES ($1, $2, $3, $4, $5, $6, $7)
+     (title, platform_id, external_id, link, difficulty, question, solution, explanation)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
      RETURNING id`,
 		question.Title,
 		platformID,
 		question.ExternalID,
 		question.Link,
 		question.Difficulty,
+		question.Question,
 		question.Solution,
 		question.Explanation,
 	).Scan(&questionID)

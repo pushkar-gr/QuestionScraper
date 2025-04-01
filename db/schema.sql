@@ -23,6 +23,7 @@ CREATE TABLE questions (
   external_id VARCHAR(255),
   link TEXT NOT NULL UNIQUE,
   difficulty difficulty_level,
+  question TEXT,
   solution TEXT,
   explanation TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,

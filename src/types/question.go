@@ -6,6 +6,7 @@ type Question struct {
 	ExternalID  string
 	Link        string
 	Difficulty  string
+	Question    string
 	Solution    string
 	Explanation string
 	Topics      []string
