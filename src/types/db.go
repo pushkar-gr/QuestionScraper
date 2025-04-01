@@ -139,6 +139,6 @@ func (db *DB) InsertQuestion(question Question) error {
 }
 
 // closes db
-func (db *DB) closeDB() {
+func (db *DB) CloseDB() {
 	db.DB.Close()
 }
