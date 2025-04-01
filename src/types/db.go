@@ -17,6 +17,59 @@ type DB struct {
 }
 
 // insert platforms and topics to database
+// input config
+// output error if any
+func (db *DB) Populate(config *Config) error {
+	//insert platforms
+	for _, platform := range config.Platforms {
+		//check if platform already exists in db
+		var existingID int
+		err := db.DB.QueryRow("SELECT id FROM platforms WHERE name = $1", platform.Name).Scan(&existingID)
+		if err != nil {
+			if err == sql.ErrNoRows {
+				//platform does not exist
+				_, err := db.DB.Exec("INSERT INTO platforms (name, website_url) VALUES ($1, $2)", platform.Name, platform.WebsiteURL)
+				if err != nil {
+					return fmt.Errorf("Error inserting platform %s: %v", platform.Name, err)
+				} else {
+					fmt.Printf("Inserted platform: %s\n", platform.Name)
+				}
+			} else {
+				return fmt.Errorf("Error checking for existing platform %s: %v", platform.Name, err)
+			}
+		} else {
+			fmt.Printf("Platform %s already exists with ID: %d\n", platform.Name, existingID)
+		}
+	}
+
+	//insert topics
+	for _, topic := range config.Topics {
+		//check if topic already exists in db
+		var existingID int
+		err := db.DB.QueryRow("SELECT id FROM topics WHERE name = $1", topic.Name).Scan(&existingID)
+		if err != nil {
+			if err == sql.ErrNoRows {
+				//topic does not exist
+				_, err := db.DB.Exec("INSERT INTO topics (name, description) VALUES ($1, $2)", topic.Name, topic.Description)
+				if err != nil {
+					return fmt.Errorf("Error inserting topic %s: %v", topic.Name, err)
+				} else {
+					fmt.Printf("Inserted topic: %s\n", topic.Name)
+				}
+			} else {
+				return fmt.Errorf("Error checking for existing topic %s: %v", topic.Name, err)
+			}
+		} else {
+			fmt.Printf("Topic %s already exists with ID: %d\n", topic.Name, existingID)
+		}
+	}
+
+	fmt.Println("Data population complete.\n\n")
+
+	return nil
+}
+
+// insert platforms and topics to database
 // input: Config
 // output: error if any
 func (db *DB) Init(config *Config) error {
