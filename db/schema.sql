@@ -26,7 +26,8 @@ CREATE TABLE questions (
   solution TEXT,
   explanation TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT uq_platform_external UNIQUE (platform_id, external_id)
+  CONSTRAINT uq_platform_external UNIQUE (platform_id, external_id),
+  CONSTRAINT uq_platform_title UNIQUE (platform_id, title)
 );
 
 -- Junction table for many-to-many relationship between questions and topics
