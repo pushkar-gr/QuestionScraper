@@ -6,7 +6,12 @@ import (
 	"net/http"
 )
 
-const ENDPOINT = "https://geeksforgeeks.com/api/vr/" //api endpoint
+const ENDPOINT = "https://geeksforgeeks.com/api/vr/problems" //api endpoint
+
+type respError struct {
+	Code    int    `json:"code"`
+	Message string `json:"message"`
+}
 
 // send GET request to ENDPOINT
 // input: request URL
