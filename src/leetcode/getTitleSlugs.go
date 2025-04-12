@@ -8,7 +8,7 @@ import (
 const LIMIT = 100 //number of question names to get in 1 request
 
 type respFormatTitleSlug struct {
-	Errors []GraphQLError `json:"errors"`
+	Errors []graphQLError `json:"errors"`
 
 	Data struct {
 		ProblemsetQuestionList struct {
@@ -24,7 +24,7 @@ type respFormatTitleSlug struct {
 // input: topic name, number of questions to skip from front, list of questions to append
 // output: end of question list, error if any
 func getTitleSlugs(topic string, skip int, questions *[]string) (bool, error) {
-	requestBody := GraphQLRequest{
+	requestBody := graphQLRequest{
 		Query: `query problemsetQuestionList($categorySlug: String, $limit: Int, $skip: Int, $filters: QuestionListFilterInput) {
 							problemsetQuestionList: questionList(
 								categorySlug: $categorySlug

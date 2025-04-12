@@ -10,13 +10,13 @@ import (
 
 const ENDPOINT = "https://leetcode.com/graphql/" //api endpoint
 
-type GraphQLRequest struct {
+type graphQLRequest struct {
 	Query         string         `json:"query"`
 	Variables     map[string]any `json:"variables"`
 	OperationName string         `json:"operationName"`
 }
 
-type GraphQLError struct {
+type graphQLError struct {
 	Message   string `json:"message"`
 	Locations []struct {
 		Line   int `json:"line"`
@@ -28,7 +28,7 @@ type GraphQLError struct {
 // send POST request to ENDPOINT
 // input: GraphQLRequest
 // output: response body or error if any
-func sendRequest(body *GraphQLRequest) ([]byte, error) {
+func sendRequest(body *graphQLRequest) ([]byte, error) {
 	//encode requestBody to json format
 	jsonBody, err := json.Marshal(body)
 	if err != nil {

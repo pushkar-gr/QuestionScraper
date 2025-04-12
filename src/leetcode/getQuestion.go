@@ -8,7 +8,7 @@ import (
 )
 
 type respFormatQuestion struct {
-	Errors []GraphQLError `json:"errors"`
+	Errors []graphQLError `json:"errors"`
 
 	Data struct {
 		Question struct {
@@ -29,7 +29,7 @@ type respFormatQuestion struct {
 
 func GetQuestion(titleSlug string) (*types.Question, error) {
 	//get question details
-	requestBody := GraphQLRequest{
+	requestBody := graphQLRequest{
 		Query: `query GetProblemData($titleSlug: String) {
 							question(titleSlug: $titleSlug) {
 								title
