@@ -18,7 +18,7 @@ type respFormatQuestion struct {
 			Content    string `json:"content"`
 			TopicTags  []struct {
 				Slug string `json:"slug"`
-			}
+			} `json:"topicTags"`
 			Solution struct {
 				PaidOnly bool   `json:"paidOnly"`
 				Content  string `json:"content"`
