@@ -8,7 +8,7 @@ import (
 )
 
 type respFormatQuestion struct {
-	Error Error `json:"error"`
+	Error respError `json:"error"`
 
 	Results struct {
 		ProblemName     string   `json:"problem_name"`
@@ -19,8 +19,8 @@ type respFormatQuestion struct {
 	} `json:"results"`
 }
 
-func GetQuestion(slug string, link string) (*types.Question, error) {
-	respBody, err := sendRequest(slug)
+func GetQuestion(questionTitle questionTitle) (*types.Question, error) {
+	respBody, err := sendRequest(questionTitle.Slug)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func GetQuestion(slug string, link string) (*types.Question, error) {
 	question.Title = respStruct.Results.ProblemName
 	question.Platform = "GeeksForGeeks"
 	question.ExternalID = respStruct.Results.Id
-	question.Link = link
+	question.Link = questionTitle.link
 	question.Difficulty = respStruct.Results.Difficulty
 	question.Question = respStruct.Results.ProblemQuestion
 
