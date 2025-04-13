@@ -45,7 +45,7 @@ func GetQuestion(questionTitle questionTitle) (*types.Question, error) {
 	question.Title = respStruct.Results.ProblemName
 	question.Platform = "GeeksForGeeks"
 	question.ExternalID = respStruct.Results.Id
-	question.Link = questionTitle.link
+	question.Link = questionTitle.ProblemUrl
 	question.Difficulty = respStruct.Results.Difficulty
 	question.Question = respStruct.Results.ProblemQuestion
 
