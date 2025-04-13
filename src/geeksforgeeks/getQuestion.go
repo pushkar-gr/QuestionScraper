@@ -12,7 +12,7 @@ type respFormatQuestion struct {
 
 	Results struct {
 		ProblemName     string   `json:"problem_name"`
-		Id              string   `json:"id"`
+		Id              int      `json:"id"`
 		Difficulty      string   `json:"difficulty"`
 		ProblemQuestion string   `json:"problem_question"`
 		TopicTags       []string `json:"topic_tags"`
@@ -44,9 +44,12 @@ func GetQuestion(questionTitle questionTitle) (*types.Question, error) {
 	//fill data
 	question.Title = respStruct.Results.ProblemName
 	question.Platform = "GeeksForGeeks"
-	question.ExternalID = respStruct.Results.Id
+	question.ExternalID = fmt.Sprintf("%d", respStruct.Results.Id)
 	question.Link = questionTitle.ProblemUrl
 	question.Difficulty = respStruct.Results.Difficulty
+	if question.Difficulty == "Basic" {
+		question.Difficulty = "Easy"
+	}
 	question.Question = respStruct.Results.ProblemQuestion
 
 	for _, topic := range respStruct.Results.TopicTags {
