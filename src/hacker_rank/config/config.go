@@ -1,7 +1,7 @@
-// src/hacker_rank/config/config.go
 package config
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -21,9 +21,8 @@ func LoadConfig() (*Config, error) {
 
 	apiKey := os.Getenv("HACKERRANK_API_KEY")
 	if apiKey == "" {
-		return nil, log.Fatal("HACKERRANK_API_KEY environment variable not set")
+		return nil, fmt.Errorf("HACKERRANK_API_KEY environment variable not set")
 	}
-
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"

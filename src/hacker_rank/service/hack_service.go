@@ -1,12 +1,12 @@
-// src/hacker_rank/service/question_service.go
 package service
 
 import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"src/hacker_rank/config"
-	"src/hacker_rank/util"
+
+	"github.com/pushkar-gr/QuestionScraper/src/hacker_rank/config"
+	"github.com/pushkar-gr/QuestionScraper/src/hacker_rank/util"
 )
 
 type Question struct {

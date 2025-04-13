@@ -1,11 +1,10 @@
-// src/hacker_rank/handler/question_handler.go
 package handler
 
 import (
 	"net/http"
 	"strconv"
 
-	"src/hacker_rank/service"
+	"github.com/pushkar-gr/QuestionScraper/src/hacker_rank/service"
 
 	"github.com/gin-gonic/gin"
 )
