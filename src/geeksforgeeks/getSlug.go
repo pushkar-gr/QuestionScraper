@@ -9,7 +9,6 @@ type respFormatTitleSlug struct {
 	Error respError `json:"error"`
 
 	Next    int             `json:"next"`
-	Count   int             `json:"count"`
 	Results []questionTitle `json:"results"`
 }
 
@@ -58,9 +57,10 @@ func GetTitleSlugs(topic string) ([]questionTitle, error) {
 	questions := make([]questionTitle, 0, 20)
 
 	page := 1
+	var err error
 
 	for {
-		page, err := getTitleSlugs(topic, page, &questions)
+		page, err = getTitleSlugs(topic, page, &questions)
 		if err != nil {
 			return nil, err
 		}
