@@ -1,0 +1,32 @@
+services:
+  question_scraper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: question_scraper
+    environment:
+      - DB_HOST=host.docker.internal
+      - DB_PASSWORD=password
+      - DB_USERNAME=postgres
+      - DB_NAME=question_scraper
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - postgresql
+
+  postgresql:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: question_scraper
+    volumes:
+      - postgres_data_question_scraper:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+volumes:
+  postgres_data_question_scraper:
