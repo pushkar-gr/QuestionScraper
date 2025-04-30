@@ -9,8 +9,12 @@
   website_url = "https://leetcode.com/"
 
 [[platforms]]
-  name = "HackerRank"
-  website_url = "https://www.hackerrank.com/"
+  name = "GeeksForGeeks"
+  website_url = "https://www.geeksforgeeks.org/"
+
+[[platforms]]
+  name = "HackerEarth"
+  website_url = "https://www.hackerearth.com/"
 
 [[topics]]
   name = "queue"
