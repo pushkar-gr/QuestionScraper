@@ -50,12 +50,22 @@ func GetQuestion(questionTitle questionTitle) (*types.Question, error) {
 
 	question := new(types.Question)
 
+	var difficulty types.DifficultyLevel
+	questionTitle.Difficulty = strings.ToLower(questionTitle.Difficulty)
+	if questionTitle.Difficulty == "medium" {
+		difficulty = types.Medium
+	} else if questionTitle.Difficulty == "hard" {
+		difficulty = types.Hard
+	} else {
+		difficulty = types.Easy
+	}
+
 	//fill data
 	question.Title = respStruct.Title
 	question.Platform = "HackerEarth"
 	question.ExternalID = fmt.Sprintf("%d", respStruct.Id)
 	question.Link = "https://www.hackerearth.com" + questionTitle.Url
-	question.Difficulty = questionTitle.Difficulty
+	question.Difficulty = difficulty
 	question.Question = respStruct.Description
 	question.Explanation = respStruct.SampleExplanation
 

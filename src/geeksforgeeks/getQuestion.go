@@ -3,6 +3,7 @@ package geeksforgeeks
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/pushkar-gr/QuestionScraper/src/types"
 )
@@ -41,12 +42,22 @@ func GetQuestion(questionTitle questionTitle) (*types.Question, error) {
 
 	question := new(types.Question)
 
+	var difficulty types.DifficultyLevel
+	respStruct.Results.Difficulty = strings.ToLower(respStruct.Results.Difficulty)
+	if respStruct.Results.Difficulty == "medium" {
+		difficulty = types.Medium
+	} else if respStruct.Results.Difficulty == "hard" {
+		difficulty = types.Hard
+	} else {
+		difficulty = types.Easy
+	}
+
 	//fill data
 	question.Title = respStruct.Results.ProblemName
 	question.Platform = "GeeksForGeeks"
 	question.ExternalID = fmt.Sprintf("%d", respStruct.Results.Id)
 	question.Link = questionTitle.ProblemUrl
-	question.Difficulty = respStruct.Results.Difficulty
+	question.Difficulty = difficulty
 	if question.Difficulty == "Basic" {
 		question.Difficulty = "Easy"
 	}

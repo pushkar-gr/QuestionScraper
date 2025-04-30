@@ -3,6 +3,7 @@ package leetcode
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/pushkar-gr/QuestionScraper/src/types"
 )
@@ -74,12 +75,22 @@ func GetQuestion(titleSlug string) (*types.Question, error) {
 
 	question := new(types.Question)
 
+	var difficulty types.DifficultyLevel
+	respStruct.Data.Question.Difficulty = strings.ToLower(respStruct.Data.Question.Difficulty)
+	if respStruct.Data.Question.Difficulty == "medium" {
+		difficulty = types.Medium
+	} else if respStruct.Data.Question.Difficulty == "hard" {
+		difficulty = types.Hard
+	} else {
+		difficulty = types.Easy
+	}
+
 	//fill data
 	question.Title = respStruct.Data.Question.Title
 	question.Platform = "LeetCode"
 	question.ExternalID = respStruct.Data.Question.QuestionId
 	question.Link = fmt.Sprintf("www.leetcode.com/problems/%s/description", titleSlug)
-	question.Difficulty = respStruct.Data.Question.Difficulty
+	question.Difficulty = difficulty
 	question.Question = respStruct.Data.Question.Content
 	question.Solution = respStruct.Data.Question.Solution.Content
 
