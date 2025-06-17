@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/lib/pq"
 )
@@ -180,7 +181,7 @@ func (db *DB) InsertQuestion(question *Question) error {
 				VALUES ($1)
 				ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name
 				RETURNING id`,
-			topicName,
+			strings.ToLower(topicName),
 		).Scan(&topicID)
 
 		if err != nil {
