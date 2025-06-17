@@ -12,11 +12,13 @@ type respFormatQuestion struct {
 	Error respError `json:"error"`
 
 	Results struct {
-		ProblemName     string   `json:"problem_name"`
-		Id              int      `json:"id"`
-		Difficulty      string   `json:"difficulty"`
-		ProblemQuestion string   `json:"problem_question"`
-		TopicTags       []string `json:"topic_tags"`
+		ProblemName     string `json:"problem_name"`
+		Id              int    `json:"id"`
+		Difficulty      string `json:"difficulty"`
+		ProblemQuestion string `json:"problem_question"`
+		Tags            struct {
+			TopicTags []string `json:"topic_tags"`
+		} `json:"tags"`
 	} `json:"results"`
 }
 
@@ -44,11 +46,14 @@ func GetQuestion(questionTitle questionTitle) (*types.Question, error) {
 
 	var difficulty types.DifficultyLevel
 	respStruct.Results.Difficulty = strings.ToLower(respStruct.Results.Difficulty)
-	if respStruct.Results.Difficulty == "medium" {
+	switch respStruct.Results.Difficulty {
+	case "medium":
 		difficulty = types.Medium
-	} else if respStruct.Results.Difficulty == "hard" {
+	case "hard":
 		difficulty = types.Hard
-	} else {
+	case "easy":
+		difficulty = types.Easy
+	case "basic":
 		difficulty = types.Easy
 	}
 
@@ -58,12 +63,9 @@ func GetQuestion(questionTitle questionTitle) (*types.Question, error) {
 	question.ExternalID = fmt.Sprintf("%d", respStruct.Results.Id)
 	question.Link = questionTitle.ProblemUrl
 	question.Difficulty = difficulty
-	if question.Difficulty == "Basic" {
-		question.Difficulty = "Easy"
-	}
 	question.Question = respStruct.Results.ProblemQuestion
 
-	for _, topic := range respStruct.Results.TopicTags {
+	for _, topic := range respStruct.Results.Tags.TopicTags {
 		question.Topics = append(question.Topics, topic)
 	}
 
